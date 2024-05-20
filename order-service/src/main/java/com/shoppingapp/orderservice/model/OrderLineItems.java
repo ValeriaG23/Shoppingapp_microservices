@@ -1,6 +1,8 @@
-package main.java.com.shoppingapp.orderservice.model;
+package com.shoppingapp.orderservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
