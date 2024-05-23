@@ -1,0 +1,18 @@
+# Ignoră toate fișierele și directoarele din rădăcina proiectului
+/*
+# Excepție: nu ignora directorul microservices și conținutul său
+!/microservices/
+!/microservices/**
+
+# Ignoră directoarele comune care nu sunt relevante pentru proiect
+/node_modules/
+/.idea/
+/.vscode/
+/target/
+/*.log
+*.log
+.DS_Store
+
+# Ignoră fișierele și directoarele de configurare personală
+/.gitconfig
+/.bash_history
