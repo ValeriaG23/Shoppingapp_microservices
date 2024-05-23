@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.shoppingapp.orderservice.dto.InventoryResponse;
 import com.shoppingapp.orderservice.dto.OrderLineItemsDto;
 import com.shoppingapp.orderservice.dto.OrderRequest;
 import com.shoppingapp.orderservice.model.Order;
@@ -14,6 +15,8 @@ import com.shoppingapp.orderservice.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -49,16 +52,24 @@ public class OrderService {
         // apelam Inventory Service, si plasam comanda daca produsul e in stoc
         // inventory controller este expus la un get endpoint
         // salv rsp in result prim p
-        Boolean result = webClient.get()
-                .uri("http://localhost:8083/api/inventory")
+        InventoryResponse[] inventoryResponsArray = webClient.get()
+                .uri("http://localhost:8083/api/inventory",
+                        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
-                .bodyToMono(Boolean.class) // citeste datele din webclient rsp
+                .bodyToMono(InventoryResponse[].class) // citeste datele din webclient rsp
                 // by default va fi o cerere asincrona, pentru a o face sincrona:
                 .block();
 
+        // verif daca e sau nu in stoc
+        // avem o lista de matrice la inventar, o convertim in stream si apelam allMatch
+        // method pt a verifica daca e in stoc
+        // daca va contine IsInStoc true va reveni true si vice versa
+        boolean allProductsInStock = Arrays.stream(inventoryResponsArray)
+                .allMatch(inventoryResponse -> inventoryResponse.isInStock());
+
         // verificam stocul
-        if (result) {
-            // plasam comanda in baza de date
+        if (allProductsInStock) {
+            // daca toate prod sunt in stoc plasam comanda
             orderRepository.save(order);
             // primim order request de la client, cererea trece la controller
             // din controller cererea de comanda trece la order service, mapam order request
