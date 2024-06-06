@@ -1,0 +1,60 @@
+Application Data/
+Cookies/
+Local Settings/
+NetHood/
+PrintHood/
+Recent/
+SendTo/
+.idea/
+.VirtualBox/
+.android/
+.azure/
+.bash_history
+.cache/
+.docker/
+.dotnet/
+.gitconfig
+.gradle/
+.ipynb_checkpoints/
+.jdks/
+.jupyter/
+.kube/
+.lesshst
+.librarymanager/
+.m2/
+.matplotlib/
+.minikube/
+.nuget/
+.packettracer
+.redhat/
+.ssh/
+.testcontainers.properties
+.thumbnails/
+.viminfo
+.vscode/
+3D Objects/
+AppData/
+Cisco Packet Tracer 8.2.1/
+Contacts/
+Creative Cloud Files/
+Documents/
+Downloads/
+Favorites/
+IdeaProjects/
+IntelGraphicsProfiles/
+Links/
+MicrosoftEdgeBackups/
+Music/
+OneDrive/
+Pictures/
+PycharmProjects/
+Saved Games/
+Searches/
+Videos/
+VirtualBox VMs/
+cloud-app/
+my-app-cloud/
+node_modules/
+source/
+untitled.py
+vmlogs/
