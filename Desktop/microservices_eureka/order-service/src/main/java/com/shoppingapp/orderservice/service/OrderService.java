@@ -28,7 +28,7 @@ public class OrderService {
     // inject order repository in order service
     private final OrderRepository orderRepository;
     // inject web client
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     // va prelua cererea de comanda
     public void placeOrder(OrderRequest orderRequest) {
@@ -52,8 +52,8 @@ public class OrderService {
         // apelam Inventory Service, si plasam comanda daca produsul e in stoc
         // inventory controller este expus la un get endpoint
         // salv rsp in result prim p
-        InventoryResponse[] inventoryResponsArray = webClient.get()
-                .uri("http://localhost:8083/api/inventory",
+        InventoryResponse[] inventoryResponsArray = webClientBuilder.build().get()
+                .uri("http://inventory-service/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class) // citeste datele din webclient rsp
